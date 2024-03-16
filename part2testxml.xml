@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<assembly>
+	<name>TestProjectpart2</name>
+	<version>1.0.0.0</version>
+	<files>
+		<file path="Tests.cs">
+			<type>TestFixture</type>
+			<name>Tests</name>
+			<testcases>
+				<testcase>
+					<name>TestSyntaxCheck</name>
+					<description>Tests the SyntaxCheck method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestUpdateProgramTextBox</name>
+					<description>Tests the UpdateProgramTextBox method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestSetPenColor</name>
+					<description>Tests the SetPenColor method of CommandParser.</description>
+				</testcase>
+				<testcase>
+					<name>TestIsValidColor</name>
+					<description>Tests the IsValidColor method of CommandParser.</description>
+				</testcase>
+				<testcase>
+					<name>TestExecuteCommand_Position</name>
+					<description>Tests the ExecuteCommand method of CommandParser with the 'position' command.</description>
+				</testcase>
+				<testcase>
+					<name>TestExecuteCommand_Draw</name>
+					<description>Tests the ExecuteCommand method of CommandParser with the 'draw' command.</description>
+				</testcase>
+				<testcase>
+					<name>TestExecuteCommand_Clear</name>
+					<description>Tests the ExecuteCommand method of CommandParser with the 'clear' command.</description>
+				</testcase>
+				<testcase>
+					<name>TestExecuteProgram</name>
+					<description>Tests the ExecuteProgram method of CommandParser.</description>
+				</testcase>
+				<testcase>
+					<name>TestRunProgram</name>
+					<description>Tests the RunProgram method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestRunButton_Click</name>
+					<description>Tests the RunButton_Click method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestButton1_Click_1</name>
+					<description>Tests the button1_Click_1 method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestButton2_Click_1</name>
+					<description>Tests the button2_Click_1 method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestButton3_Click_1</name>
+					<description>Tests the button3_Click_1 method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestButton4_Click_1</name>
+					<description>Tests the button4_Click_1 method of MainForm.</description>
+				</testcase>
+			</testcases>
+		</file>
+	</files>
+</assembly>
+
