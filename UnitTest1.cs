@@ -180,5 +180,119 @@ namespace TestProjectpart2
             // Act & Assert
             Assert.DoesNotThrow(() => mainForm.button4_Click_1(button, System.EventArgs.Empty));
         }
+        [Test]
+        public void TestExpressions()
+        {
+            // Arrange
+            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
+
+            // Act
+            int result = commandParser.EvaluateExpression("5 * 10");
+
+            // Assert
+            Assert.AreEqual(50, result);
+        }
+
+        [Test]
+        public void TestLoopWithVariable()
+        {
+            // Arrange
+            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
+            List<string> commands = new List<string> { "pen red", "draw 10 10" };
+            int count = 3;
+
+            // Act & Assert
+            Assert.DoesNotThrow(() =>
+            {
+                commandParser.ExecuteLoopWithVariable(commands, count);
+            });
+        }
+
+        [Test]
+        public void TestMethodsWithMultipleParameters()
+        {
+            // Arrange
+            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
+            int x = 10;
+            int y = 20;
+            int radius = 30;
+
+            // Act & Assert
+            Assert.DoesNotThrow(() =>
+            {
+                commandParser.DrawCircle(x, y, radius);
+            });
+        }
+
+        [Test]
+        public void TestSyntaxCheck()
+        {
+            // Arrange
+            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
+            List<string> commands = new List<string> { "position 10 10", "pen red", "draw 50 50", "circle 20", "fill on" };
+
+            // Act & Assert
+            Assert.DoesNotThrow(() => mainForm.SyntaxCheck(commands, commandParser));
+        }
+
+        [Test]
+        public void TestIfStatement()
+        {
+            // Arrange
+            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
+            string condition = "5 > 3";
+            List<string> ifBlock = new List<string> { "pen red", "draw 50 50" };
+            List<string> elseBlock = new List<string> { "pen blue", "draw 20 20" };
+
+            // Act & Assert
+            Assert.DoesNotThrow(() =>
+            {
+                commandParser.ExecuteIfStatement(condition, ifBlock, elseBlock);
+            });
+        }
+
+        [Test]
+        public void TestIfStatementWithCodeBlock()
+        {
+            // Arrange
+            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
+            string condition = "5 > 3";
+            List<string> codeBlock = new List<string> { "pen red", "draw 50 50" };
+
+            // Act & Assert
+            Assert.DoesNotThrow(() =>
+            {
+                commandParser.ExecuteIfStatementWithCodeBlock(condition, codeBlock);
+            });
+        }
+
+        [Test]
+        public void TestLoopWithVariable()
+        {
+            // Arrange
+            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
+            List<string> commands = new List<string> { "pen red", "draw 10 10" };
+            int count = 3;
+
+            // Act & Assert
+            Assert.DoesNotThrow(() =>
+            {
+                commandParser.ExecuteLoopWithVariable(commands, count);
+            });
+        }
+
+        [Test]
+        public void TestExpressions()
+        {
+            // Arrange
+            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
+
+            // Act
+            int result = commandParser.EvaluateExpression("5 * 10");
+
+            // Assert
+            Assert.AreEqual(50, result);
+        }
     }
 }
+   
