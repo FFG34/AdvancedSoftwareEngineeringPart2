@@ -1,70 +1,113 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<assembly>
-	<name>TestProjectpart2</name>
-	<version>1.0.0.0</version>
-	<files>
-		<file path="Tests.cs">
-			<type>TestFixture</type>
-			<name>Tests</name>
-			<testcases>
-				<testcase>
-					<name>TestSyntaxCheck</name>
-					<description>Tests the SyntaxCheck method of MainForm.</description>
-				</testcase>
-				<testcase>
-					<name>TestUpdateProgramTextBox</name>
-					<description>Tests the UpdateProgramTextBox method of MainForm.</description>
-				</testcase>
-				<testcase>
-					<name>TestSetPenColor</name>
-					<description>Tests the SetPenColor method of CommandParser.</description>
-				</testcase>
-				<testcase>
-					<name>TestIsValidColor</name>
-					<description>Tests the IsValidColor method of CommandParser.</description>
-				</testcase>
-				<testcase>
-					<name>TestExecuteCommand_Position</name>
-					<description>Tests the ExecuteCommand method of CommandParser with the 'position' command.</description>
-				</testcase>
-				<testcase>
-					<name>TestExecuteCommand_Draw</name>
-					<description>Tests the ExecuteCommand method of CommandParser with the 'draw' command.</description>
-				</testcase>
-				<testcase>
-					<name>TestExecuteCommand_Clear</name>
-					<description>Tests the ExecuteCommand method of CommandParser with the 'clear' command.</description>
-				</testcase>
-				<testcase>
-					<name>TestExecuteProgram</name>
-					<description>Tests the ExecuteProgram method of CommandParser.</description>
-				</testcase>
-				<testcase>
-					<name>TestRunProgram</name>
-					<description>Tests the RunProgram method of MainForm.</description>
-				</testcase>
-				<testcase>
-					<name>TestRunButton_Click</name>
-					<description>Tests the RunButton_Click method of MainForm.</description>
-				</testcase>
-				<testcase>
-					<name>TestButton1_Click_1</name>
-					<description>Tests the button1_Click_1 method of MainForm.</description>
-				</testcase>
-				<testcase>
-					<name>TestButton2_Click_1</name>
-					<description>Tests the button2_Click_1 method of MainForm.</description>
-				</testcase>
-				<testcase>
-					<name>TestButton3_Click_1</name>
-					<description>Tests the button3_Click_1 method of MainForm.</description>
-				</testcase>
-				<testcase>
-					<name>TestButton4_Click_1</name>
-					<description>Tests the button4_Click_1 method of MainForm.</description>
-				</testcase>
-			</testcases>
-		</file>
-	</files>
-</assembly>
-
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+	<assembly>
+		<name>TestProjectpart2</name>
+	</assembly>
+	<members>
+		<member name="T:TestProjectpart2.Tests">
+			<summary>
+				Test class for testing methods in the MainForm and CommandParser classes.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.Setup">
+			<summary>
+				Initializes the MainForm before each test method.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestSyntaxCheck">
+			<summary>
+				Test for checking syntax of the provided commands.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestUpdateProgramTextBox">
+			<summary>
+				Test for updating the program text box with a list of commands.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestSetPenColor">
+			<summary>
+				Test for setting the pen color.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestIsValidColor">
+			<summary>
+				Test for checking if a color is valid.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestExecuteCommand_Position">
+			<summary>
+				Test for executing the 'position' command.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestExecuteCommand_Draw">
+			<summary>
+				Test for executing the 'draw' command.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestExecuteCommand_Clear">
+			<summary>
+				Test for executing the 'clear' command.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestExecuteProgram">
+			<summary>
+				Test for executing a list of commands as a program.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestRunProgram">
+			<summary>
+				Test for running a program with commands on MainForm.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestRunButton_Click">
+			<summary>
+				Test for clicking the run button and executing commands.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestButton1_Click_1">
+			<summary>
+				Test for clicking button 1 and executing commands.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestButton2_Click_1">
+			<summary>
+				Test for clicking button 2 and executing commands.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestButton3_Click_1">
+			<summary>
+				Test for clicking button 3 and executing commands.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestButton4_Click_1">
+			<summary>
+				Test for clicking button 4 and executing commands.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestExpressions">
+			<summary>
+				Test for evaluating mathematical expressions.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestLoopWithVariable">
+			<summary>
+				Test for executing a loop with a variable count.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestMethodsWithMultipleParameters">
+			<summary>
+				Test for invoking methods with multiple parameters.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestIfStatement">
+			<summary>
+				Test for executing an if statement with if and else blocks.
+			</summary>
+		</member>
+		<member name="M:TestProjectpart2.Tests.TestIfStatementWithCodeBlock">
+			<summary>
+				Test for executing an if statement with a code block.
+			</summary>
+		</member>
+	</members>
+</doc>
