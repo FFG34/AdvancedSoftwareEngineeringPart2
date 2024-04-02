@@ -1,132 +1,81 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<doc>
-	<assembly>
-		<name>AdvancedSoftwareEngineeringPart2</name>
-	</assembly>
-	<members>
-		<member name="T:AdvancedSoftwareEngineeringPart2.MainForm">
-			<summary>
-				Represents the main form of the application.
-			</summary>
-		</member>
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.#ctor">
-			<summary>
-				Initializes a new instance of the <see cref="T:AdvancedSoftwareEngineeringPart2.MainForm"/> class.
-			</summary>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.InitializeCommandParsers">
-			<summary>
-				Initializes command parsers and program command lists.
-			</summary>
-		</member>
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.SyntaxCheck(System.Collections.Generic.List{System.String},AdvancedSoftwareEngineeringPart2.CommandParser)">
-			<summary>
-				Performs syntax checking for program commands.
-			</summary>
-			<param name="programCommands">The list of program commands to check.</param>
-			<param name="commandParser">The command parser to use for syntax checking.</param>
-		</member>
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.UpdateProgramTextBox(System.Collections.Generic.List{System.String},System.Windows.Forms.TextBox)">
-			<summary>
-				Updates the text in a program text box.
-			</summary>
-			<param name="programCommands">The list of program commands to display.</param>
-			<param name="textBox">The text box to update.</param>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.button1_Click_1(System.Object,System.EventArgs)">
-			<summary>
-				Handles the click event of button1. Saves program commands to a text file.
-			</summary>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.textBox3_TextChanged_1(System.Object,System.EventArgs)">
-			<summary>
-				Handles the text changed event of textBox3. Updates the program commands list associated with program 2.
-			</summary>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.button2_Click_1(System.Object,System.EventArgs)">
-			<summary>
-				Handles the click event of button2. Loads program commands from a text file.
-			</summary>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.button3_Click_1(System.Object,System.EventArgs)">
-			<summary>
-				Handles the click event of button3. Adds a command to both program 1 and program 2.
-			</summary>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.button4_Click_1(System.Object,System.EventArgs)">
-			<summary>
-				Handles the click event of button4. Performs syntax check for both programs.
-			</summary>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.RunButton_Click(System.Object,System.EventArgs)">
-			<summary>
-				Handles the click event of RunButton. Executes the programs in separate threads.
-			</summary>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.MainForm.RunProgram(System.Collections.Generic.List{System.String},AdvancedSoftwareEngineeringPart2.CommandParser)">
-			<summary>
-				Runs a program using the specified command parser and program commands list.
-			</summary>
-			<param name="programCommands">The list of program commands to execute.</param>
-			<param name="commandParser">The command parser to use for execution.</param>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="T:AdvancedSoftwareEngineeringPart2.CommandParser">
-			<summary>
-				Represents a parser for interpreting and executing commands.
-			</summary>
-		</member>
-		<member name="M:AdvancedSoftwareEngineeringPart2.CommandParser.#ctor(System.Drawing.Graphics,System.Drawing.Size)">
-			<summary>
-				Initializes a new instance of the <see cref="T:AdvancedSoftwareEngineeringPart2.CommandParser"/> class.
-			</summary>
-			<param name="graphics">The graphics object to use for drawing.</param>
-			<param name="canvasSize">The size of the drawing canvas.</param>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.CommandParser.ExecuteProgram(System.Collections.Generic.List{System.String})">
-			<summary>
-				Executes a list of program commands.
-			</summary>
-			<param name="commands">The list of commands to execute.</param>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.CommandParser.ExecuteCommand(System.String)">
-			<summary>
-				Executes a single command.
-			</summary>
-			<param name="command">The command to execute.</param>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.CommandParser.SyntaxCheck(System.String)">
-			<summary>
-				Performs syntax checking for a single command.
-			</summary>
-			<param name="command">The command to check.</param>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.CommandParser.SetPenColor(System.String)">
-			<summary>
-				Sets the color of the pen used for drawing.
-			</summary>
-			<param name="color">The color to set.</param>
-		</member>
-		<!-- Add XML documentation for other members here -->
-		<member name="M:AdvancedSoftwareEngineeringPart2.CommandParser.IsValidColor(System.String)">
-			<summary>
-				Checks if a color string is valid.
-			</summary>
-			<param name="color">The color string to check.</param>
-			<returns>True if the color string is valid, otherwise false.</returns>
-		</member>
-		<!-- Add XML documentation for other members here -->
-	</members>
-</doc>
+<?xml version="1.0" encoding="utf-8"?>
+<assembly>
+	<name>TestProjectpart2</name>
+	<version>1.0.0.0</version>
+	<files>
+		<file path="Tests.cs">
+			<type>TestFixture</type>
+			<name>Tests</name>
+			<testcases>
+				<testcase>
+					<name>TestSyntaxCheck</name>
+					<description>Tests the SyntaxCheck method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestUpdateProgramTextBox</name>
+					<description>Tests the UpdateProgramTextBox method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestSetPenColor</name>
+					<description>Tests the SetPenColor method of CommandParser.</description>
+				</testcase>
+				<testcase>
+					<name>TestIsValidColor</name>
+					<description>Tests the IsValidColor method of CommandParser.</description>
+				</testcase>
+				<testcase>
+					<name>TestExecuteCommand_Position</name>
+					<description>Tests the ExecuteCommand method of CommandParser with the 'position' command.</description>
+				</testcase>
+				<testcase>
+					<name>TestExecuteCommand_Draw</name>
+					<description>Tests the ExecuteCommand method of CommandParser with the 'draw' command.</description>
+				</testcase>
+				<testcase>
+					<name>TestExecuteCommand_Clear</name>
+					<description>Tests the ExecuteCommand method of CommandParser with the 'clear' command.</description>
+				</testcase>
+				<testcase>
+					<name>TestExecuteProgram</name>
+					<description>Tests the ExecuteProgram method of CommandParser.</description>
+				</testcase>
+				<testcase>
+					<name>TestRunProgram</name>
+					<description>Tests the RunProgram method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestRunButton_Click</name>
+					<description>Tests the RunButton_Click method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestButton1_Click_1</name>
+					<description>Tests the button1_Click_1 method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestButton2_Click_1</name>
+					<description>Tests the button2_Click_1 method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestButton3_Click_1</name>
+					<description>Tests the button3_Click_1 method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestButton4_Click_1</name>
+					<description>Tests the button4_Click_1 method of MainForm.</description>
+				</testcase>
+				<testcase>
+					<name>TestSyntaxCheck_WhileLoop</name>
+					<description>Tests the SyntaxCheck method of MainForm with a while loop command.</description>
+				</testcase>
+				<testcase>
+					<name>TestSyntaxCheck_IfExpression</name>
+					<description>Tests the SyntaxCheck method of MainForm with an if expression command.</description>
+				</testcase>
+				<testcase>
+					<name>TestSyntaxCheck_VariableAssignment</name>
+					<description>Tests the SyntaxCheck method of MainForm with a variable assignment command.</description>
+				</testcase>
+			</testcases>
+		</file>
+	</files>
+</assembly>
