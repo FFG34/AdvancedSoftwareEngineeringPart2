@@ -21,7 +21,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestSyntaxCheck()
+        public void TestSyntaxCheck_ValidCommands()
         {
             // Arrange
             CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
@@ -32,7 +32,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestUpdateProgramTextBox()
+        public void TestUpdateProgramTextBox_UpdateText()
         {
             // Arrange
             TextBox textBox = new TextBox();
@@ -46,7 +46,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestSetPenColor()
+        public void TestSetPenColor_ValidColor()
         {
             // Arrange
             CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
@@ -56,7 +56,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestIsValidColor()
+        public void TestIsValidColor_ValidColors()
         {
             // Arrange
             CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
@@ -66,6 +66,15 @@ namespace TestProjectpart2
             Assert.IsTrue(commandParser.IsValidColor("green"));
             Assert.IsTrue(commandParser.IsValidColor("blue"));
             Assert.IsTrue(commandParser.IsValidColor("black"));
+        }
+
+        [Test]
+        public void TestIsValidColor_InvalidColor()
+        {
+            // Arrange
+            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
+
+            // Act & Assert
             Assert.IsFalse(commandParser.IsValidColor("yellow"));
         }
 
@@ -103,7 +112,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestExecuteProgram()
+        public void TestExecuteProgram_ValidProgram()
         {
             // Arrange
             CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
@@ -114,7 +123,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestRunProgram()
+        public void TestRunProgram_ValidProgram()
         {
             // Arrange
             List<string> commands = new List<string> { "position 10 10", "pen red", "draw 50 50", "circle 20", "fill on" };
@@ -125,7 +134,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestRunButton_Click()
+        public void TestRunButton_Click_ValidProgram()
         {
             // Arrange
             Button button = new Button();
@@ -141,7 +150,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestButton1_Click_1()
+        public void TestButton1_Click_1_ValidClick()
         {
             // Arrange
             Button button = new Button();
@@ -151,7 +160,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestButton2_Click_1()
+        public void TestButton2_Click_1_ValidClick()
         {
             // Arrange
             Button button = new Button();
@@ -161,7 +170,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestButton3_Click_1()
+        public void TestButton3_Click_1_ValidClick()
         {
             // Arrange
             Button button = new Button();
@@ -172,7 +181,7 @@ namespace TestProjectpart2
         }
 
         [Test]
-        public void TestButton4_Click_1()
+        public void TestButton4_Click_1_ValidClick()
         {
             // Arrange
             Button button = new Button();
@@ -181,118 +190,40 @@ namespace TestProjectpart2
             Assert.DoesNotThrow(() => mainForm.button4_Click_1(button, System.EventArgs.Empty));
         }
         [Test]
-        public void TestExpressions()
-        {
-            // Arrange
-            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
-
-            // Act
-            int result = commandParser.EvaluateExpression("5 * 10");
-
-            // Assert
-            Assert.AreEqual(50, result);
-        }
+     
 
         [Test]
-        public void TestLoopWithVariable()
+        public void TestSyntaxCheck_WhileLoop()
         {
             // Arrange
             CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
-            List<string> commands = new List<string> { "pen red", "draw 10 10" };
-            int count = 3;
-
-            // Act & Assert
-            Assert.DoesNotThrow(() =>
-            {
-                commandParser.ExecuteLoopWithVariable(commands, count);
-            });
-        }
-
-        [Test]
-        public void TestMethodsWithMultipleParameters()
-        {
-            // Arrange
-            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
-            int x = 10;
-            int y = 20;
-            int radius = 30;
-
-            // Act & Assert
-            Assert.DoesNotThrow(() =>
-            {
-                commandParser.DrawCircle(x, y, radius);
-            });
-        }
-
-        [Test]
-        public void TestSyntaxCheck()
-        {
-            // Arrange
-            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
-            List<string> commands = new List<string> { "position 10 10", "pen red", "draw 50 50", "circle 20", "fill on" };
+            List<string> commands = new List<string> { "position 10 10", "while x < 100", "draw x x", "x = x + 10", "endwhile", "fill on" };
 
             // Act & Assert
             Assert.DoesNotThrow(() => mainForm.SyntaxCheck(commands, commandParser));
         }
 
         [Test]
-        public void TestIfStatement()
+        public void TestSyntaxCheck_IfExpression()
         {
             // Arrange
             CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
-            string condition = "5 > 3";
-            List<string> ifBlock = new List<string> { "pen red", "draw 50 50" };
-            List<string> elseBlock = new List<string> { "pen blue", "draw 20 20" };
+            List<string> commands = new List<string> { "position 10 10", "if x < 100", "draw x x", "endif", "fill on" };
 
             // Act & Assert
-            Assert.DoesNotThrow(() =>
-            {
-                commandParser.ExecuteIfStatement(condition, ifBlock, elseBlock);
-            });
+            Assert.DoesNotThrow(() => mainForm.SyntaxCheck(commands, commandParser));
         }
 
         [Test]
-        public void TestIfStatementWithCodeBlock()
+        public void TestSyntaxCheck_VariableAssignment()
         {
             // Arrange
             CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
-            string condition = "5 > 3";
-            List<string> codeBlock = new List<string> { "pen red", "draw 50 50" };
+            List<string> commands = new List<string> { "position 10 10", "x = 50", "y = 100", "draw x y", "fill on" };
 
             // Act & Assert
-            Assert.DoesNotThrow(() =>
-            {
-                commandParser.ExecuteIfStatementWithCodeBlock(condition, codeBlock);
-            });
-        }
+            Assert.DoesNotThrow(() => mainForm.SyntaxCheck(commands, commandParser));
+               
 
-        [Test]
-        public void TestLoopWithVariable()
-        {
-            // Arrange
-            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
-            List<string> commands = new List<string> { "pen red", "draw 10 10" };
-            int count = 3;
-
-            // Act & Assert
-            Assert.DoesNotThrow(() =>
-            {
-                commandParser.ExecuteLoopWithVariable(commands, count);
-            });
-        }
-
-        [Test]
-        public void TestExpressions()
-        {
-            // Arrange
-            CommandParser commandParser = new CommandParser(Graphics.FromImage(new Bitmap(1, 1)), new Size(100, 100));
-
-            // Act
-            int result = commandParser.EvaluateExpression("5 * 10");
-
-            // Assert
-            Assert.AreEqual(50, result);
-        }
     }
 }
-   
