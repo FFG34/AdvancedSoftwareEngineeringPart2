@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -20,7 +21,7 @@ namespace AdvancedSoftwareEngineeringPart2
         {
             InitializeComponent();
             InitializeCommandParsers();
-    
+
         }
 
         public void InitializeCommandParsers()
@@ -69,7 +70,7 @@ namespace AdvancedSoftwareEngineeringPart2
                 File.WriteAllLines(saveFileDialog.FileName, programCommandsList[0]);
             }
         }
-        
+
         private void textBox3_TextChanged_1(object sender, EventArgs e)
         {
             // Update program commands list associated with program 2
@@ -171,7 +172,7 @@ namespace AdvancedSoftwareEngineeringPart2
             }
         }
 
-     
+
         private void button6_Click_1(object sender, EventArgs e)
         {
             // Change the text color of ProgramTextBox
@@ -219,6 +220,7 @@ namespace AdvancedSoftwareEngineeringPart2
         public Pen pen;
         public Size canvasSize;
         public bool fillEnabled = false;
+        public Dictionary<string, int> variables = new Dictionary<string, int>();
 
         public CommandParser(Graphics graphics, Size canvasSize)
         {
@@ -290,12 +292,27 @@ namespace AdvancedSoftwareEngineeringPart2
                 case "circle":
                     if (parts.Length < 2)
                         throw new ArgumentException("Invalid number of parameters for circle command");
-                    int radius = int.Parse(parts[1]);
-                    int diameter = radius * 2;
-                    if (fillEnabled)
-                        graphics.FillEllipse(pen.Brush, 0, 0, diameter, diameter);
+                    if (int.TryParse(parts[1], out int radius))
+                    {
+                        DrawCircle(radius);
+                    }
+                    else if (parts.Length == 3 && parts[1].ToLower() == "variable")
+                    {
+                        // User defined a variable for the circle radius
+                        string vriableName = parts[2];
+                        if (variables.ContainsKey(vriableName))
+                        {
+                            DrawCircle(variables[vriableName]);
+                        }
+                        else
+                        {
+                            throw new ArgumentException($"Variable '{vriableName}' is not defined");
+                        }
+                    }
                     else
-                        graphics.DrawEllipse(pen, 0, 0, diameter, diameter);
+                    {
+                        throw new ArgumentException($"Invalid parameters for circle command: {command}");
+                    }
                     break;
 
                 case "triangle":
@@ -320,15 +337,231 @@ namespace AdvancedSoftwareEngineeringPart2
                         fillEnabled = false;
                     break;
 
+                case "variable":
+                    if (parts.Length != 3)
+                        throw new ArgumentException("Invalid number of parameters for variable command");
+                    string variable = parts[1];
+                    int value;
+                    if (!int.TryParse(parts[2], out value))
+                    {
+                        throw new ArgumentException("Invalid value for variable assignment");
+                    }
+                    variables[variable] = value;
+                    break;
+
+                case "evaluate":
+                    if (parts.Length != 5 || parts[2] != "=")
+                        throw new ArgumentException("Invalid expression evaluation syntax");
+                    string varName = parts[1];
+                    if (!variables.ContainsKey(varName))
+                        throw new ArgumentException($"Variable '{varName}' is not defined");
+                    if (parts[3] != "+")
+                        throw new ArgumentException("Invalid expression evaluation syntax");
+                    int increment;
+                    if (!int.TryParse(parts[4], out increment))
+                        throw new ArgumentException("Invalid increment value");
+                    variables[varName] += increment;
+                    break;
+                
+
+                case "if":
+                    ExecuteIfStatement(command);
+                    break;
+                case "endif":
+                    break;
+                case "while":
+                    ExecuteWhileLoop(command);
+                    break;
+                case "endloop":
+
+                    break;
+
                 default:
                     throw new ArgumentException($"Invalid command: {cmd}");
+                   
             }
         }
 
+        public void ExecuteWhileLoop(string loopStartCommand)
+        {
+            // Check if the loopStartCommand contains "While"
+            if (!loopStartCommand.Contains("While"))
+            {
+                MessageBox.Show("Invalid while loop syntax: 'While' keyword missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Extract condition from loop command
+            int whileIndex = loopStartCommand.IndexOf("While");
+            string initializationCommand = loopStartCommand.Substring(0, whileIndex).Trim();
+            string condition = loopStartCommand.Substring(whileIndex + 5).Trim();
+
+            // Initialize variable value dynamically
+            try
+            {
+                ExecuteCommand(initializationCommand);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error initializing variable: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Execute loop three times
+            for (int i = 0; i < 3; i++)
+            {
+                // Execute the drawing command inside the loop
+                try
+                {
+                    // Check if 'a' is a valid variable name in the variables dictionary
+                    if (variables.ContainsKey("a"))
+                    {
+                        // Get the value of 'a' from the variables dictionary
+                        int radius = variables["a"] + i * 10; // Adjust radius dynamically
+
+                        // Draw the circle with radius 'a'
+                        DrawCircle(radius);
+                    }
+                    else
+                    {
+                        // If 'a' is not found in the variables dictionary, show an error message
+                        MessageBox.Show("Variable 'a' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error executing command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break; // Exit the loop if an error occurs during execution
+                }
+            }
+        }
+
+
+        public void ExecuteIfStatement(string command)
+        {
+            // Extract condition from if statement
+            int ifIndex = command.IndexOf("if");
+            int endifIndex = command.IndexOf("endif");
+
+            if (ifIndex == -1 || endifIndex == -1)
+            {
+                //MessageBox.Show("Invalid 'if' statement. 'if' or 'endif' keyword missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string condition = command.Substring(ifIndex + 2, endifIndex - ifIndex - 2);
+
+            // Remove leading and trailing whitespace
+            condition = condition.Trim();
+
+            // Debugging: Display the extracted condition
+            MessageBox.Show($"Extracted condition: {condition}", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Evaluate the condition
+            bool conditionResult = EvaluateCondition(condition);
+
+            // Debugging: Display the result of the condition evaluation
+            MessageBox.Show($"Condition Result: {conditionResult}", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // If condition is true, execute the commands between if and endif
+            if (conditionResult)
+            {
+                // Execute lines between if and endif
+                int startIndex = command.IndexOf(command) + 1;
+                int endIndex = command.IndexOf("endif");
+
+                for (int i = startIndex; i < endIndex; i++)
+                {
+                    try
+                    {
+                        ExecuteCommand(command);
+                 
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error executing command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    }
+                }
+            }
+        }
+
+        public bool EvaluateCondition(string condition)
+        {
+            // Evaluate the condition
+            // For simplicity, assuming condition is in the form "<variable> <operator> <value>"
+            string[] parts = condition.Split(' ');
+            string variableName = parts[0];
+            string comparisonOperator = parts[1];
+            int value = int.Parse(parts[2]);
+
+            if (!variables.ContainsKey(variableName))
+            {
+                MessageBox.Show($"Variable '{variableName}' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            int variableValue = variables[variableName];
+
+            switch (comparisonOperator)
+            {
+                case "==":
+                    return variableValue == value;
+                case "!=":
+                    return variableValue != value;
+                case ">":
+                    return variableValue > value;
+                case "<":
+                    return variableValue < value;
+                case ">=":
+                    return variableValue >= value;
+                case "<=":
+                    return variableValue <= value;
+                default:
+                    MessageBox.Show("Invalid comparison operator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+            }
+        }
+
+
+
+
+        private bool EvaluateComparison(int variableValue, string comparison, int value)
+        {
+            switch (comparison)
+            {
+                case ">":
+                    return variableValue > value;
+                case "<":
+                    return variableValue < value;
+                case ">=":
+                    return variableValue >= value;
+                case "<=":
+                    return variableValue <= value;
+                case "==":
+                    return variableValue == value;
+                case "!=":
+                    return variableValue != value;
+                default:
+                    throw new ArgumentException($"Invalid comparison operator '{comparison}'");
+            }
+        }
+
+
+        
+
+
+        private int EvaluateExpression(string expression)
+        {
+            DataTable dt = new DataTable();
+            var result = dt.Compute(expression, "");
+            return Convert.ToInt32(result);
+        }
         public void SyntaxCheck(string command)
         {
             // Check for valid commands
-            if (!Regex.IsMatch(command, @"^(position|pen|draw|clear|reset|rectangle|circle|triangle|fill)\s+(\w+\s*)*$", RegexOptions.IgnoreCase))
+            if (!Regex.IsMatch(command, @"^(position|pen|draw|clear|reset|rectangle|circle|triangle|fill|variable)\s+(\w+\s*)*$", RegexOptions.IgnoreCase))
                 throw new ArgumentException($"Invalid command syntax: {command}");
 
             string[] parts = command.Split(' ');
@@ -358,13 +591,18 @@ namespace AdvancedSoftwareEngineeringPart2
                     break;
 
                 case "circle":
-                    if (parts.Length < 2 || !int.TryParse(parts[1], out _))
+                    if (parts.Length < 2 || (!int.TryParse(parts[1], out _) && !(parts.Length == 3 && parts[1].ToLower() == "variable")))
                         throw new ArgumentException($"Invalid parameters for circle command: {command}");
                     break;
 
                 case "fill":
                     if (parts.Length < 2 || (parts[1].ToLower() != "on" && parts[1].ToLower() != "off"))
                         throw new ArgumentException($"Invalid parameters for fill command: {command}");
+                    break;
+
+                case "variable":
+                    if (parts.Length < 3 || !int.TryParse(parts[2], out _))
+                        throw new ArgumentException($"Invalid parameters for variable command: {command}");
                     break;
 
                 case "triangle":
@@ -400,6 +638,9 @@ namespace AdvancedSoftwareEngineeringPart2
             }
         }
 
+        
+
+
         public bool IsValidColor(string color)
         {
             switch (color.ToLower())
@@ -412,6 +653,15 @@ namespace AdvancedSoftwareEngineeringPart2
                 default:
                     return false;
             }
+        }
+
+        private void DrawCircle(int radius)
+        {
+            int diameter = radius * 2;
+            if (fillEnabled)
+                graphics.FillEllipse(pen.Brush, 0, 0, diameter, diameter);
+            else
+                graphics.DrawEllipse(pen, 0, 0, diameter, diameter);
         }
     }
 }
