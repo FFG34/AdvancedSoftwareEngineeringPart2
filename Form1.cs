@@ -370,8 +370,25 @@ namespace AdvancedSoftwareEngineeringPart2
                 case "endif":
                     break;
                 case "while":
-                    ExecuteWhileLoop(command);
+                    if (parts.Length != 5 || parts[2] != "<")
+                        throw new ArgumentException("Invalid while loop syntax");
+
+                    string loopVariableName = parts[1];
+                    int loopLimit = int.Parse(parts[3]);
+
+                    while (variables.ContainsKey(loopVariableName) && variables[loopVariableName] < loopLimit)
+                    {
+                        // Execute commands inside the while loop
+                        int r = variables[loopVariableName]; // Using the value of the loop variable as the radius
+                        DrawCircle(r);
+
+                        // Update the loop variable
+                        variables[loopVariableName] += int.Parse(parts[4]); // Increment the loop variable
+
+                        // Check the condition again for the next iteration
+                    }
                     break;
+
                 case "endloop":
 
                     break;
